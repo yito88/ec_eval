@@ -1,5 +1,7 @@
 # ec_eval
 - Evaluation for Erasure Coding
+  * Measuring encoding and decoding time
 
-## JErasure
-- https://github.com/tsuraan/Jerasure
+## Refs
+- JErasure: https://github.com/tsuraan/Jerasure
+

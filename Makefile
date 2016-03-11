@@ -1,7 +1,10 @@
 # Macro
 TARGET = eval
 CC = gcc-4.9
-OBJS = eval.o encoder.o decoder.o measure.o
+SRCDIR = ./src
+OBJDIR = ./obj
+SRCS = $(wildcard $(SRCDIR)/*.c)
+OBJS = $(subst $(SRCDIR), $(OBJDIR), $(SRCS:.c=.o))
 CFLAGS = -Wall -O2 -m64
 
 INCLUDES = -I/usr/include -I/usr/include/isa-l -I/usr/local/include -I/usr/local/include/jerasure
@@ -17,8 +20,9 @@ clean:
 	-rm -f $(TARGET) $(OBJS) ./encoded/* ./decoded/*
 
 # suffix rurles
-.c.o:
-	$(CC) $(CFLAGS) $(INCLUDES) -c $<
-
-eval.o: eval.h
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
+	@if [ ! -d $(OBJDIR) ]; \
+		then echo "mkdir -p $(OBJDIR)"; mkdir -p $(OBJDIR); \
+		fi
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ -c $<
 
